@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:menu/src/helper/triangle_painter.dart';
 import 'package:menu/src/helper/ui_helper.dart';
 import 'package:menu/src/menu/tap_type.dart';
 
@@ -106,8 +107,24 @@ class MenuState extends State<Menu> {
           ],
         );
       }).toList(),
-      // shrinkWrap: true,
+      shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
+    );
+
+    const triangleHeight = 10.0;
+    const triangleWidth = 15.0;
+    const rowHeight = 36.0;
+
+    var t = SizedBox(
+      child: CustomPaint(
+        size: Size(triangleWidth, triangleHeight),
+        painter: TrianglePainter(
+          isDown: false,
+          color: menuDecoration.color,
+        ),
+      ),
+      width: triangleWidth,
+      height: triangleHeight,
     );
 
     w = FittedBox(
@@ -116,9 +133,22 @@ class MenuState extends State<Menu> {
       child: Container(
         alignment: Alignment.topLeft,
         // color: Colors.green,
-        width: MediaQuery.of(context).size.width,
-        child: w,
-        height: 36,
+        // width: MediaQuery.of(context).size.width,
+        height: triangleHeight + rowHeight,
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: t,
+              height: triangleHeight,
+            ),
+            Container(
+              child: w,
+              height: rowHeight,
+            ),
+          ],
+        ),
       ),
     );
 
